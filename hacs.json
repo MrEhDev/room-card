@@ -1,0 +1,10 @@
+{
+    "name": "Room Card",
+    "content_in_root": true,
+    "filename": "room-card.js",
+    "domains": ["lovelace"],
+    "homeassistant": "2021.11.0",
+    "country": "ES",
+    "iot_class": "Local Polling"
+  }
+  
