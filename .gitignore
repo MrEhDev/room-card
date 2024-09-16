@@ -1,7 +1,8 @@
 # Node modules
 node_modules/
+dist/*.map
 
-example/
+examples/ejemplos.yaml
 
 # Compiled files
 *.pyc
@@ -11,3 +12,8 @@ examples/ejemplos.yaml
 
 # Ignore DS_Store files (Mac)
 .DS_Store
+
+package.json
+package-lock.json
+webpack.config.js
+.babelrc
