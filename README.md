@@ -1,176 +1,293 @@
-# 📐 Room Card - Tarjeta Personalizada para Home Assistant
-
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/) 
-![version](https://img.shields.io/badge/version-1.0.0-blue)
-
-**Room Card** es una tarjeta completamente personalizable para Home Assistant que permite controlar dispositivos y monitorizar sensores dentro de cualquier habitación de manera atractiva y funcional.
-
-<!-- ![Room Card Preview](url-de-la-imagen-de-previa-aquí) MODIFICAR -->
-
-## ✨ Características Principales
-
-- 📊 **Visualización de Datos**: Muestra la información de cualquier sensor en la esquina superior.
-- 🖼️ **Fondos Dinámicos**: Añade imágenes de fondo personalizadas o dinámicas según las condiciones de los sensores.
-- 🔌 **Controles de Dispositivos**: Controla luces, persianas, ventiladores, y más desde una sola tarjeta.
-- 🎨 **Totalmente Personalizable**: Colores, iconos, textos y estilos a tu medida.
-- 🔄 **Acciones Personalizadas**: Define las acciones al hacer clic en los dispositivos.
 
 ---
 
-## 🚀 Instalación
+# 🏠 **Room Card** - Custom Home Assistant Lovelace Card
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-blue.svg)](https://www.home-assistant.io/)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/usuario/room-card)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![Español](https://img.shields.io/badge/Readme-Español-red.svg)](README_es.md)
 
-### Opción 1: HACS (Recomendado)
-1. Añadir el repositorio manualmente a HACS.
-2. Instalar la tarjeta y añadir el recurso:
-    ```yaml
-    resources:
-      - url: /hacsfiles/room-card/room-card.js
-        type: module
-    ```
+## 🎨 **Description**
 
-### Opción 2: Manual
-1. Descargar el archivo `room-card.js` y colocarlo en `/config/www/`.
-2. Añadir el recurso a `ui-lovelace.yaml`:
-    ```yaml
-    resources:
-      - url: /local/room-card.js
-        type: module
-    ```
+**Room Card** is a customizable card for Home Assistant that allows you to visually monitor the rooms and devices in your home. It supports displaying temperature, humidity, and controlling devices like lights, switches, fans, and more. The card is fully customizable, from colors to icons and backgrounds! 😍
 
 ---
 
-## ⚙️ Configuración Básica
+## 🚀 **Main Features**
+
+- 📏 **Customizable Sizes**: Adjust the size of icons and text.
+- 🎨 **Customizable Colors**: Define text, icon, and background colors.
+- 🌡️ **Temperature and Humidity Sensors**: Displays room temperature and humidity.
+- 🚪 **Room Icon**: Represent the room with a customizable icon.
+- 🖼️ **Dynamic Backgrounds**: Add background images for each room.
+- 🛠️ **Simplified Mode**: Simplify the card with fewer controls and a clean view.
+
+---
+
+## 📦 **Installation**
+
+### 🔧 **Manual Installation**
+
+1. Download the `room-card.js` file from [this link](https://github.com/usuario/room-card/releases).
+2. Copy the file to your `config/www/` directory.
+3. Add the resource to your Lovelace in `Configuration -> Resources`:
 
 ```yaml
-type: custom:room-card 
-title: Habitación Principal
-background: /local/room-card/bedroom.webp
-display_entity: sensor.habitacion_ninos_temperatura
+resources:
+  - url: /local/room-card.js
+    type: module
+```
+
+4. Restart Home Assistant and add the card to your dashboard.
+
+### 📥 **Installation with HACS**
+
+1. Open HACS in your Home Assistant.
+2. Go to the "Frontend" section and search for `Room Card`.
+3. Install the card and restart Home Assistant.
+4. Add the resource automatically from HACS.
+
+---
+
+## 📋 **Basic Configuration**
+
+To add the card to your dashboard, use the following basic configuration:
+
+```yaml
+type: custom:room-card
+title: Office
+background: /local/room-card/img/office.jpg # Custom background image
+room_icon: mdi:desktop-classic # Room icon
+on_icon_background: 'radial-gradient(circle, #44739e 0%,  transparent 40%)'
+room_icon_color: '#44739e'
+display_entity: sensor.temp_office # Temperature sensor
+display_humidity_sensor: sensor.hum_office # Humidity sensor
 display_icon: mdi:thermometer
-display_unit: '°C'
-on_color: '#fdd835'
-off_color: '#757575'
-text_color: '#ffffff'
-background_overlay: true
-icon_size: '80px'
 controls:
-  - entity: light.habitacion_ninos_luz
-    name: Luz Principal
+  - entity: light.office
+    name: Light
     icon: mdi:ceiling-light
     tap_action:
       action: toggle
-  - entity: media_player.habitacion_ninos_tv
+    show_state: false
+  - entity: switch.leds_office
+    name: Leds
+    icon: mdi:led-strip
+  - entity: switch.pc
+    name: PC
+    show_state: false
+    icon: mdi:monitor-shimmer
+    tap_action:
+      action: toggle
+  - entity: climate.office
+    name: Climate
+    icon: mdi:thermometer
+    show_state: false
+    tap_action:
+      action: more-info
+  - entity: switch.3d_printer
+    name: 3D Printer
+    icon: mdi:printer-3d
+    show_state: false
+    tap_action:
+      action: more-info
+```
+
+### 📷 **Screenshot of Basic Example:**
+
+![Basic Example](examples/basic.png)
+
+---
+
+## 🌈 **Configuration Options**
+
+Below are all the available options to customize the **Room Card**.
+
+### **Main Attributes:**
+
+| Attribute                | Description                                                                                        | Type      | Default Value           |
+|--------------------------|----------------------------------------------------------------------------------------------------|-----------|-------------------------|
+| `title`                  | The card's title displayed at the top                                                              | `string`  | `Required`              |
+| `title_color`            | Changes the title color                                                                            | `color`   | None                    |
+| `background`             | Path to the background image, can be local or remote                                               | `string`  | None                    |
+| `simplify`               | When activated, the card is shown in a simplified format without the room icon                     | `boolean` | `false`                 |
+| `room_icon`              | The room icon using any Material Design icon                                                       | `string`  | None                    |
+| `room_icon_color`        | Color of the room icon                                                                             | `string`  | `var(--primary-text-color)` |
+| `sensor_text_color`      | Text color for sensor names and states                                                             | `string`  | `var(--primary-text-color)` |
+| `display_entity`         | Temperature sensor to be displayed in the card                                                     | `entity`  | None                    |
+| `display_humidity_sensor`| Humidity sensor to be displayed in the card                                                        | `entity`  | None                    |
+| `max_temperature`        | Maximum temperature for high-temperature alerts                                                    | `string`  | 26                      |
+| `min_temperature`        | Minimum temperature for low-temperature alerts                                                     | `string`  | 18                      |
+| `humidity_threshold`     | Humidity threshold for high humidity alerts                                                        | `string`  | 65                      |
+| `display_icon`           | Icon to accompany the temperature value                                                            | `mdi:icon`| None                    |
+| `icon_size`              | Icon size                                                                                          | `string`  | 40px / 60px             |
+| `on_icon_background`     | Background for icons in the "on" state                                                             | `string`  | None                    |
+| `off_icon_background`    | Background for icons in the "off" state                                                            | `string`  | None                    |
+| `on_color`               | Color for icons in the "on" state                                                                  | `string`  | Default                 |
+| `off_color`              | Color for icons in the "off" state                                                                 | `string`  | None                    |
+| `show_name`              | Show the name of all control sensors                                                               | `boolean` | `true`                  |
+| `show_state`             | Show the state of all control sensors                                                              | `boolean` | `true`                  |
+| `sensor_text_color`      | Text color for sensor readings                                                                     | `boolean` | Default                 |
+
+### **Control Attributes (within `controls`):**
+
+| Attribute        | Description                                                                                        | Type      | Default Value         |
+|------------------|----------------------------------------------------------------------------------------------------|-----------|-----------------------|
+| `entity`         | Entity of the device to be shown as control (lights, switches, etc.)                                | `entity`  | `Required`            |
+| `name`           | Name displayed under the control icon                                                               | `string`  | Device Name            |
+| `icon`           | The icon representing the control                                                                   | `string`  | None                  |
+| `show_name`      | Whether or not to display the control name                                                          | `boolean` | `true`                |
+| `show_state`     | Whether or not to display the control state                                                         | `boolean` | `true`                |
+| `icon_size`      | Size of the icon in pixels                                                                          | `string`  | `60px` in full mode    |
+| `tap_action`     | Behavior when the icon is clicked                                                                   | `string`  | `action: toggle`       |
+
+---
+
+## 🔧 **Advanced Example**
+
+For more advanced customization, you can use the following configuration which demonstrates handling multiple controls and different sensors:
+
+### 📷 **Screenshot of Advanced Example:**
+
+_🔽 Advanced example_
+
+![Advanced Example](examples/advanced.png)
+
+_🔽 Advanced example with *simplify: true*_
+
+![Advanced Example](examples/advanced_simplify.png)
+
+---
+
+```yaml
+type: custom:room-card
+title: Living Room
+title_color: '#a770af'
+background: /local/room-card/img/living_room.jpg
+simplify: true
+room_icon: mdi:sofa
+room_icon_color: '#61a257'
+display_entity: sensor.living_room_temp
+display_humidity_sensor: sensor.living_room_humidity
+max_temperature: 22
+min_temperature: 16
+humidity_threshold: 65
+display_icon: mdi:thermometer
+display_unit: '°C'
+icon_size: 40px
+on_icon_background: 'radial-gradient(circle, #a770af 0%,  transparent 30%)'
+off_icon_background: 'radial-gradient(circle, #313730 0%,  transparent 30%)'
+on_color: '#78af70'
+off_color: '#7e5984'
+show_name: true
+show_state: false
+sensor_text_color: '#61a257'
+controls:
+  - entity: switch.living_room_light
+    name: Living Room
+    icon: mdi:ceiling-light
+    icon_size: 50px
+    show_name: true
+    show_state: false
+    tap_action:
+      action: toggle
+  - entity: switch.dining_room_light
+    name: Dining Room
+    icon: mdi:ceiling-light
+    tap_action:
+      action: toggle
+  -
+
+ entity: switch.led_strip
+    name: Leds
+    icon: mdi:led-strip
+    show_state: true
+  - entity: media_player.sony_tv
     name: TV
     icon: mdi:television
     tap_action:
-      action: toggle
-
+      action: more-info
+  - entity: climate.living_room
+    name: Climate
+    icon: mdi:thermometer
+    show_state: false
+    tap_action:
+      action: more-info
+  - entity: cover.living_room_blinds
+    name: Blinds
+    icon: mdi:roller-shade
+    show_state: false
+    tap_action:
+      action: more-info
 ```
+
+_🔽 Other examples_
+
+![Advanced Example](examples/room.png)
 
 ---
 
-## 🎨 Posibilidades de Personalización
-
-Room Card es completamente personalizable. Aquí tienes las opciones más comunes:
-
-| **Atributo**         | **Descripción**                                                   | **Ejemplo**                |
-|----------------------|-------------------------------------------------------------------|----------------------------|
-| `title`              | Título que aparecerá en la parte superior                         | `Habitación Niños`          |
-| `background`         | Imagen de fondo para la tarjeta                                   | `/local/room.jpg`           |
-| `display_entity`     | Entidad de Home Assistant que se mostrará en la esquina superior   | `sensor.temperatura_habitacion` |
-| `display_icon`       | Ícono que se mostrará junto al valor del sensor                   | `mdi:thermometer`           |
-| `display_unit`       | Unidad que se mostrará junto al valor                             | `'°C'`                      |
-| `on_color`           | Color del ícono cuando el dispositivo está encendido              | `#fdd835`                   |
-| `off_color`          | Color del ícono cuando el dispositivo está apagado                | `#757575`                   |
-| `icon_size`          | Tamaño del ícono del dispositivo                                  | `'80px'`                    |
-| `name_font_size`     | Tamaño del texto del nombre del dispositivo                       | `'18px'`                    |
-| `on_icon_background` | Fondo o degradado detrás del ícono cuando el dispositivo está encendido | `linear-gradient(135deg, #ff9800 0%, #ffc107 100%)` |
-
----
-
-## 💡 Ejemplos de Uso
-
-### 1. Control de una habitación con múltiples dispositivos:
+ Yaml:
 
 ```yaml
 type: custom:room-card
-title: Habitación Principal
-background: /local/room-card/bedroom_main.webp
-display_entity: sensor.habitacion_principal_temperatura
+title: Master Bedroom
+title_color: '#5aa393'
+background: /local/room-card/img/bedroom.jpg
+simplify: false
+room_icon: mdi:bed-king
+room_icon_color: '#5aa393'
+display_entity: sensor.master_bedroom_temp
+display_humidity_sensor: sensor.master_bedroom_humidity
 display_icon: mdi:thermometer
-display_unit: '°C'
-on_color: '#4caf50'
-off_color: '#f44336'
+on_icon_background: 'radial-gradient(circle, #a35a6a 0%,  transparent 40%)'
+off_icon_background: 'radial-gradient(circle, #313730 0%,  transparent 40%)'
+on_color: '#5aa393'
+off_color: '#a35a6a'
+show_state: false
 controls:
-  - entity: light.habitacion_principal_luz
-    name: Luz Principal
-    icon: mdi:lightbulb
-    tap_action:
-      action: toggle
-  - entity: switch.habitacion_principal_ventilador
-    name: Ventilador
-    icon: mdi:fan
-    tap_action:
-      action: toggle
-```
-
-### 2. Monitorización de la temperatura y control de ventilador:
-
-```yaml
-type: custom:room-card
-title: Sala de Estar
-background: /local/room-card/livingroom.webp
-display_entity: sensor.sala_estar_temperatura
-display_icon: mdi:thermometer
-display_unit: '°C'
-on_color: '#2196F3'
-off_color: '#BDBDBD'
-controls:
-  - entity: light.sala_estar_luz
-    name: Luz Principal
-    icon: mdi:lightbulb
-    tap_action:
-      action: toggle
-  - entity: switch.sala_estar_ventilador
-    name: Ventilador
-    icon: mdi:fan
-    tap_action:
-      action: toggle
-```
-
-### 3. Control de una habitación infantil con luces y persianas:
-
-```yaml
-type: custom:room-card
-title: Habitación Niños
-background: /local/room-card/kids_room.webp
-display_entity: sensor.habitacion_ninos_humedad
-display_icon: mdi:water-percent
-display_unit: '%'
-on_color: '#FFEB3B'
-off_color: '#BDBDBD'
-controls:
-  - entity: light.habitacion_ninos_luz
-    name: Luz Principal
+  - entity: switch.master_bedroom_light
     icon: mdi:ceiling-light
+    name: Light
+  - entity: media_player.tv_bedroom
+    name: TV
+    show_state: false
+    icon: mdi:television
     tap_action:
-      action: toggle
-  - entity: cover.habitacion_ninos_persiana
-    name: Persiana
-    icon: mdi:window-shutter
+      action: more-info
+  - entity: climate.master_bedroom
+    name: Climate
+    icon: mdi:thermometer
+    show_state: false
     tap_action:
-      action: toggle
+      action: more-info
+  - entity: light.bedside_lamps
+    name: Bedside Lamps
+    icon: mdi:lamp
+    show_state: false
+    tap_action:
+      action: more-info
 ```
 
 ---
 
-## 🛠️ Futuras Funcionalidades
+## 🎨 **Color Customization**
 
-- 💾 **Compilación**: En futuras versiones, se planea compilar la tarjeta para mejorar el rendimiento.
-- 🌐 **Soporte Multilenguaje**: Añadir soporte completo para múltiples idiomas.
+You can fully customize the colors of icons and text using the following options:
+
+```yaml
+room_icon_color: '#FF6347'  # Color of the room icon
+sensor_text_color: '#FF0000'  # Color of the sensor text (name and state)
+```
+
+## 🤝 **Credits and Acknowledgements**
+
+Developed by MrEhDev in collaboration with the [Aguacatec](https://aguacatec.es/) community and based on their [room card](https://aguacatec.es/tarjetas-de-habitacion/).
 
 ---
 
-## 📜 Licencia
+## 📝 **License**
 
-Este proyecto está bajo la Licencia [AGPL](https://opensource.org/licenses/AGPL-3.0).
+This project is licensed under the AGPL-3.0 License - [View details](LICENSE).
+
+---

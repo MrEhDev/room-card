@@ -1,0 +1,12 @@
+# Node modules
+node_modules/
+dist/
+
+# Compiled files
+*.pyc
+
+# Examples folder
+examples/ejemplos.yaml
+
+# Ignore DS_Store files (Mac)
+.DS_Store

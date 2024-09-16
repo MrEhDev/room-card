@@ -76,10 +76,11 @@ class RoomCard extends LitElement {
         margin-top: 16px;
         justify-content: space-evenly;
       }
-      .controls.aguacatec-true {
+      .controls.simplify-false {
         position: relative;
         left: 55%;
         width: 45%;
+        top: -50px; /* Ajuste del top cuando simplify es false */
         margin-bottom: 0;
       }
       .control {
@@ -130,7 +131,6 @@ class RoomCard extends LitElement {
         color: var(--color_icon_room, white);
       }
       .room-icon ha-icon ha-svg-icon {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
         border-radius: 50%;
         width: 110%;
         height: 110%;
@@ -147,14 +147,6 @@ class RoomCard extends LitElement {
         border-radius: 50%;
         background: none;
       }
-
-      /* Estilos responsivos */
-      @media (max-width: 600px) {
-        .controls.aguacatec-true {
-          width: 70%;
-          left: 38%;
-        }
-      }
     `;
   }
 
@@ -163,7 +155,11 @@ class RoomCard extends LitElement {
     if (!config.title) {
       throw new Error('El título es obligatorio.');
     }
-    this.config = config;
+  
+    this.config = {
+      ...config,  // Mantiene las configuraciones proporcionadas
+      sensor_text_color: config.sensor_text_color || 'var(--primary-text-color)', 
+    };
   }
 
   // Renderización de la tarjeta
@@ -180,9 +176,9 @@ class RoomCard extends LitElement {
     const textColor = this.config.text_color || 'var(--primary-text-color)';
     const showRoomIcon = this.config.room_icon ? true : false;
     const roomIconColor = this.config.room_icon_color || 'var(--color_icon_room, white)';
-    const aguacatec = this.config.aguacatec || false;
+    const simplify = this.config.simplify !== undefined ? this.config.simplify : false; // Simplify false por defecto
     const badge = this.getBadgeInfo();
-
+    
     const hasDisplayEntity = !!this.config.display_entity;
     const hasHumiditySensor = !!this.config.display_humidity_sensor;
 
@@ -229,31 +225,30 @@ class RoomCard extends LitElement {
           <div class="header">
             <h1 class="title" style="color: ${titleColor};">${this.config.title}</h1>
 
-            <!-- Mostrar la temperatura y humedad debajo del título en aguacatec:false -->
-            ${!aguacatec
+            <!-- Mostrar la temperatura y humedad debajo del título en simplify:true (modo simplificado) -->
+            ${simplify
               ? html`
                 <div class="display-entity-wrapper">
                   ${displayContent} <!-- Mostrar temperatura -->
                   ${humidityContent} <!-- Mostrar humedad con el badge -->
-                </div>
-              `
+                </div>`
               : ''}
           </div>
 
-          <!-- Mostrar el room-icon con el badge en aguacatec:true -->
-          ${aguacatec && showRoomIcon
-            ? html`<div class="room-icon" style="background: ${this.config.room_icon_background || 'radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent)'};">
+          <!-- Mostrar el room-icon con el badge en simplify:false (modo completo) -->
+          ${!simplify && showRoomIcon
+            ? html`
+              <div class="room-icon" style="background: ${this.config.room_icon_background ? this.config.room_icon_background : 'none'};">
                 <ha-icon icon="${this.config.room_icon}" class="icon" style="color: ${this.config.room_icon_color || 'var(--primary-text-color)'};"></ha-icon>
               </div>`
-            : ''}        
+            : ''}       
 
           <!-- Mostrar controles de la tarjeta -->
-          ${aguacatec ? html`${displayContent}${humidityContent}` : ''}
+          ${!simplify ? html`${displayContent}${humidityContent}` : ''}
 
-          
-          <!-- Mostrar controles de la tarjeta con el top -65px cuando aguacatec es true -->
-          <div class="controls ${aguacatec ? 'aguacatec-true' : ''}" style="${controlsStyle}; ${aguacatec ? 'top: -50px;' : ''}">
-            ${controls.map(control => this.renderControl(control, aguacatec))}
+          <!-- Mostrar controles de la tarjeta con el top -50px cuando simplify es false -->
+          <div class="controls ${simplify ? '' : 'simplify-false'}" style="${controlsStyle}; ${!simplify ? 'top: -50px;' : ''}">
+            ${controls.map(control => this.renderControl(control, simplify))}
           </div>
         </div>
       </ha-card>
@@ -261,33 +256,33 @@ class RoomCard extends LitElement {
   }
 
   // Renderización de los controles
-  renderControl(control, aguacatec) {
+  renderControl(control, simplify) {
     const entity = this.hass.states[control.entity];
     if (!entity) return html``;
-
-    const icon = control.icon || entity.attributes.icon || 'mdi:help-circle';
+  
+    const icon = control.icon || entity.attributes.icon;
     const name = control.name || entity.attributes.friendly_name || 'Dispositivo';
     const state = entity.state;
     const isActive = ['on', 'open', 'playing', 'home'].includes(state);
     const iconColor = isActive ? this.config.on_color || 'var(--paper-item-icon-active-color)' : this.config.off_color || 'var(--paper-item-icon-color)';
-    const iconSize = control.icon_size || this.config.icon_size || (aguacatec ? '40px' : '60px');
-    const nameFontSize = aguacatec ? '15px' : '18px';
-    const textColor = this.config.text_color || 'var(--primary-text-color)';
+    const iconSize = control.icon_size || this.config.icon_size || (simplify ? '60px' : '40px');
+    const nameFontSize = simplify ? '15px' : '18px';
+    const sensorTextColor = this.config.sensor_text_color || 'var(--primary-text-color)'; // Color por defecto o personalizado
     const showName = control.show_name !== undefined ? control.show_name : this.config.show_name !== false;
     const showState = control.show_state !== undefined ? control.show_state : this.config.show_state !== false;
     const onBackground = control.on_icon_background || this.config.on_icon_background || '';
     const offBackground = control.off_icon_background || this.config.off_icon_background || '';
     const background = isActive ? onBackground : offBackground;
     const controlPadding = '8px';
-
+  
     let action = () => {
       this.hass.callService('homeassistant', 'toggle', { entity_id: control.entity });
     };
-
+  
     if (control.tap_action) {
       action = () => this.handleAction(control.tap_action, control.entity);
     }
-
+  
     return html`
       <div class="control" @click="${action}" style="padding: ${controlPadding}; width: 50%; background: ${background};">
         <div class="icon-wrapper">
@@ -297,14 +292,15 @@ class RoomCard extends LitElement {
           </ha-icon>
         </div>
         ${showName
-          ? html`<span style="color: ${textColor}; font-size: ${nameFontSize};">${name}</span>`
+          ? html`<span style="color: ${sensorTextColor}; font-size: ${nameFontSize};">${name}</span>` 
           : ''}
         ${showState
-          ? html`<span class="state" style="color: ${textColor};">${state}</span>`
+          ? html`<span class="state" style="color: ${sensorTextColor};">${state}</span>` 
           : ''}
       </div>
     `;
   }
+  
 
   // Método para manejar acciones
   handleAction(actionConfig, defaultEntityId) {
@@ -353,10 +349,10 @@ class RoomCard extends LitElement {
       return { icon: 'mdi:water', background: '#2196F3' };
     }
     if (temperature >= maxTemp) {
-      return { icon: 'mdi:sun-thermometer', background: '#f44336' };
+      return { icon: 'mdi:sun-thermometer', background: '#f44336' }; // Badge de temperatura alta
     }
     if (temperature <= minTemp) {
-      return { icon: 'mdi:snowflake', background: '#2196F3' };
+      return { icon: 'mdi:snowflake', background: '#2196F3' }; // Badge de temperatura baja
     }
 
     return null;
@@ -364,8 +360,9 @@ class RoomCard extends LitElement {
 
   // Tamaño de la tarjeta
   getCardSize() {
-    return 3;
+    return 3; // Definir tamaño de la tarjeta (número de filas que ocupa en el dashboard)
   }
 }
 
 customElements.define('room-card', RoomCard);
+

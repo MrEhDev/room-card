@@ -1,10 +1,13 @@
 {
-    "name": "Room Card",
-    "content_in_root": true,
-    "filename": "room-card.js",
-    "domains": ["lovelace"],
-    "homeassistant": "2021.11.0",
-    "country": "ES",
-    "iot_class": "Local Polling"
-  }
-  
+  "name": "Room Card",
+  "description": "A customizable Home Assistant Lovelace card to monitor rooms and devices.",
+  "domains": ["lovelace"],
+  "country": "ES",
+  "homeassistant": "2021.12.0",
+  "render_readme": true,
+  "zip_release": false,
+  "filename": "room-card.js",
+  "iot_class": "local_polling",
+  "manifest_version": 1,
+  "hacs": true
+}
