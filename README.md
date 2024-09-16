@@ -6,6 +6,10 @@
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/usuario/room-card)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![Español](https://img.shields.io/badge/Readme-Español-red.svg)](https://github.com/MrEhDev/room-card/blob/main/src/README_es.md)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%23FFDD00.svg?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/mrehdev)
+[![PayPal](https://img.shields.io/badge/PayPal-00457C.svg?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/EleazarDevTech)
+
+
 
 ## 🎨 **Description**
 
