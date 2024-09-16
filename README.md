@@ -5,7 +5,7 @@
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-blue.svg)](https://www.home-assistant.io/)
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/usuario/room-card)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)](https://opensource.org/licenses/AGPL-3.0)
-[![Español](https://img.shields.io/badge/Readme-Español-red.svg)](README_es.md)
+[![Español](https://img.shields.io/badge/Readme-Español-red.svg)](src/README_es.md))
 
 ## 🎨 **Description**
 
@@ -95,7 +95,7 @@ controls:
 
 ### 📷 **Screenshot of Basic Example:**
 
-![Basic Example](examples/basic.png)
+![Basic Example](src/examples/basic.png)
 
 ---
 
@@ -151,11 +151,11 @@ For more advanced customization, you can use the following configuration which d
 
 _🔽 Advanced example_
 
-![Advanced Example](examples/advanced.png)
+![Advanced Example](src/examples/avanced.png)
 
 _🔽 Advanced example with *simplify: true*_
 
-![Advanced Example](examples/advanced_simplify.png)
+![Advanced Example](src/examples/avanced_simplify.png)
 
 ---
 
@@ -223,7 +223,7 @@ controls:
 
 _🔽 Other examples_
 
-![Advanced Example](examples/room.png)
+![Advanced Example](src/examples/room.png)
 
 ---
 

@@ -1,6 +1,8 @@
 # Node modules
 node_modules/
 
+example/
+
 # Compiled files
 *.pyc
 
