@@ -1,6 +1,10 @@
 {
   "name": "Room Card",
-  "filename": "room-card.js",
+  "content_in_root": true,
+  "filename": "room-card.js",  // Apuntando al archivo en la raíz
+  "domains": ["lovelace"],
+  "country": "global",
   "homeassistant": "2024.8.0",
   "render_readme": true,
+  "zip_release": false
 }
