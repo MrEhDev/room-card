@@ -1,0 +1,133 @@
+type: custom:room-card
+title: Salón
+background: /local/room-card/salon.jpg #Ruta a imágen de fondo
+display_entity: sensor.termostato_salon_temp #opcional #Sensor de habitación
+display_icon: mdi:thermometer #opcional #Icono sensor de habitación
+on_color: '#40587c' #opcional #color on
+off_color: '#40587c' #opcional color 
+text_color: '#ffffff' #opcional
+icon_size: 80px #opcional
+background_overlay: true #opcional
+on_icon_background: 'radial-gradient(circle, #ffffff 0%, transparent 50%)' #opcional
+controls: #entidades
+  - entity: switch.luz_salon
+    name: Luz salón
+    icon: mdi:ceiling-light
+    tap_action:
+      action: toggle
+  - entity: media_player.lg_hab_gamer
+    name: TV
+    icon: mdi:television
+    tap_action:
+      action: call-service
+      service: media_player.turn_on
+      service_data:
+        entity_id: media_player.lg_hab_gamer
+  - entity: climate.habitacion_ninos
+    name: Clima
+    icon: mdi:thermostat
+    tap_action:
+      action: more-info
+      
+      
+```
+type: custom:room-card
+title: Habitación Principal  # Título que aparecerá en la tarjeta.
+background: /local/room-card/bedroom.webp  # Imagen de fondo de la tarjeta.
+aguacatec: true  # Si se activa el modo aguacatec, cambia el diseño y distribución de la tarjeta.
+room_icon: mdi:home-outline  # Ícono principal que representa la habitación.
+room_icon_color: '#FF6347'  # Color del ícono del room_icon.
+room_icon_background: 'radial-gradient(circle, #FF6347 0%, transparent 60%)'  # Fondo del ícono principal.
+display_entity: sensor.habitacion_principal_temperatura  # Entidad para mostrar la temperatura de la habitación.
+display_humidity_sensor: sensor.habitacion_principal_humedad  # Entidad opcional para mostrar la humedad.
+max_temperature: 28  # Temperatura máxima, mostrará el badge de fuego si se alcanza o supera este valor.
+min_temperature: 16  # Temperatura mínima, mostrará el badge de copo de nieve si se iguala o está por debajo de este valor.
+humidity_threshold: 65  # Umbral de humedad, mostrará el badge de gota de agua si la humedad iguala o supera este valor.
+display_icon: mdi:thermometer  # Ícono que se muestra junto a la temperatura.
+display_unit: '°C'  # Unidad de medida para la temperatura (grados centígrados).
+icon_size: 80px  # Tamaño global de los íconos de los controles.
+on_icon_background: radial-gradient(circle, #4caf50 0%, transparent 60%)  # Fondo del ícono cuando el dispositivo esté encendido.
+off_icon_background: radial-gradient(circle, #f44336 0%, transparent 60%)  # Fondo del ícono cuando el dispositivo esté apagado.
+on_color: '#4caf50'  # Color del ícono cuando el dispositivo esté encendido.
+off_color: '#f44336'  # Color del ícono cuando el dispositivo esté apagado.
+show_name: false  # Si es `false`, oculta el nombre de los íconos en los controles.
+show_state: true  # Si es `true`, muestra el estado del ícono (encendido/apagado) debajo del ícono.
+controls:
+  - entity: light.habitacion_principal_luz  # Entidad de control para la luz principal.
+    name: Luz Principal  # Nombre que se mostrará para la luz (si `show_name` está activado).
+    icon: mdi:ceiling-light  # Ícono que representa la luz.
+    icon_size: 50px  # Tamaño personalizado del ícono de este control específico.
+    show_name: true  # Mostrar el nombre de este control, anula el valor global de `show_name`.
+    show_state: true  # Mostrar el estado de este control, anula el valor global de `show_state`.
+    tap_action:
+      action: toggle  # Acción al hacer clic en el ícono (encender/apagar).
+  - entity: switch.habitacion_principal_ventilador  # Entidad de control para el ventilador.
+    name: Ventilador  # Nombre que se mostrará para el ventilador.
+    icon: mdi:fan  # Ícono que representa el ventilador.
+    icon_size: 50px  # Tamaño personalizado del ícono de este control.
+    tap_action:
+      action: toggle  # Acción al hacer clic en el ícono (encender/apagar).
+  - entity: switch.habitacion_calefaccion  # Entidad de control para la calefacción.
+    name: Calefacción  # Nombre que se mostrará para la calefacción.
+    icon: mdi:radiator  # Ícono que representa la calefacción.
+    icon_size: 60px  # Tamaño personalizado del ícono de este control.
+    show_name: false  # Ocultar el nombre de este control en particular.
+    show_state: false  # Ocultar el estado de este control en particular.
+    tap_action:
+      action: toggle  # Acción al hacer clic en el ícono (encender/apagar).
+
+```
+
+
+```
+# Salon 1 aguacatec on
+```
+type: custom:room-card
+title: Salón
+title_color: '#61a257' # Título que aparecerá en la tarjeta.
+background: /local/room-card/salon.jpg  # Imagen de fondo de la tarjeta.
+aguacatec: true  # Si se activa el modo aguacatec, cambia el diseño y distribución de la tarjeta.
+room_icon: mdi:sofa  # Ícono principal que representa la habitación.
+room_icon_color: '#61a257'  # Color del ícono del room_icon.
+display_entity: sensor.termostato_salon_temp  # Entidad para mostrar la temperatura de la habitación.
+display_humidity_sensor: sensor.humedad_bano_habitacion_esp  # Entidad opcional para mostrar la humedad.
+max_temperature: 28  # Temperatura máxima, mostrará el badge de fuego si se alcanza o supera este valor.
+min_temperature: 16  # Temperatura mínima, mostrará el badge de copo de nieve si se iguala o está por debajo de este valor.
+humidity_threshold: 65  # Umbral de humedad, mostrará el badge de gota de agua si la humedad iguala o supera este valor.
+display_icon: mdi:thermometer  # Ícono que se muestra junto a la temperatura.
+display_unit: '°C'  # Unidad de medida para la temperatura (grados centígrados).
+on_icon_background: 'radial-gradient(circle, #a770af 0%,  transparent 60%)' #4caf50 0%, transparent 60%)  # Fondo del ícono cuando el dispositivo esté encendido.
+off_icon_background: 'radial-gradient(circle, #313730 0%,  transparent 60%)' #f44336 0%, transparent 60%)  # Fondo del ícono cuando el dispositivo esté apagado.
+on_color: '#78af70'  # Color del ícono cuando el dispositivo esté encendido.
+off_color: '#7e5984'  # Color del ícono cuando el dispositivo esté apagado.
+controls:
+  - entity: switch.luz_salon
+    name: Luz salón
+    icon: mdi:ceiling-light
+    tap_action:
+      action: toggle
+  - entity: switch.luz_comedor
+    name: Luz comedor
+    icon: mdi:ceiling-light
+    tap_action:
+      action: toggle
+  - entity: switch.sonoff_10006189aa
+    icon: mdi:led-strip
+  - entity: media_player.sony_bravia_tv
+    name: TV
+    show_state: false
+    icon: mdi:television
+    tap_action:
+      action: more-info
+  - entity: climate.habitacion_ninos
+    name: Clima
+    icon: mdi:thermometer
+    show_state: false
+    tap_action:
+      action: more-info
+  - entity: cover.persiana_del_salon
+    name: Persiana
+    icon: mdi:roller-shade
+    show_state: false
+    tap_action:
+      action: more-info
