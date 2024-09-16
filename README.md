@@ -28,7 +28,7 @@
 
 ### 🔧 **Manual Installation**
 
-1. Download the `room-card.js` file from [this link](https://github.com/usuario/room-card/releases).
+1. Download the `room-card.js` file from [this link](https://github.com/MrEhDev/room-card/blob/main/src/room-card.js).
 2. Copy the file to your `config/www/` directory.
 3. Add the resource to your Lovelace in `Configuration -> Resources`:
 
@@ -40,12 +40,13 @@ resources:
 
 4. Restart Home Assistant and add the card to your dashboard.
 
-### 📥 **Installation with HACS**
+### 📥 **Installation via HACS**
 
 1. Open HACS in your Home Assistant.
-2. Go to the "Frontend" section and search for `Room Card`.
-3. Install the card and restart Home Assistant.
-4. Add the resource automatically from HACS.
+2. Open the menu and click on `Custom repositories`.
+3. Add `https://github.com/MrEhDev/room-card`, select `Dashboard` as the type, and click add.
+4. Now search for `Room Card` in HACS.
+5. Install the card, and you're all set!
 
 ---
 

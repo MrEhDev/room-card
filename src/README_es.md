@@ -27,7 +27,7 @@ La **Room Card** es una tarjeta personalizable para Home Assistant que te permit
 
 ### 🔧 **Instalación Manual**
 
-1. Descarga el archivo `room-card.js` desde [este enlace](https://github.com/usuario/room-card/releases).
+1. Descarga el archivo `room-card.js` desde [este enlace](https://github.com/MrEhDev/room-card/blob/main/src/room-card.js).
 2. Copia el archivo en tu directorio `config/www/`.
 3. Añade el recurso a tu Lovelace en `Configuración -> Panel de recursos`:
 
@@ -42,9 +42,10 @@ resources:
 ### 📥 **Instalación con HACS**
 
 1. Abre HACS desde tu Home Assistant.
-2. Ve a la sección de "Frontend" y busca `Room Card`.
-3. Instala la tarjeta y reinicia Home Assistant.
-4. Añade el recurso automáticamente desde HACS.
+2. Abre el menú y pulsa sobre `Repositorios personalizados`
+3. Añade `https://github.com/MrEhDev/room-card`, selecciona como tipo `Dashboard` y pulsa añadir
+4. Ahora busca `Room Card` en HACS.
+5. Instala la tarjeta y listo!
 
 ---
 
