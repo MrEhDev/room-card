@@ -5,7 +5,7 @@
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Integration-blue.svg)](https://www.home-assistant.io/)
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/usuario/room-card)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)](https://opensource.org/licenses/AGPL-3.0)
-[![Español](https://img.shields.io/badge/Readme-Español-red.svg)](src/README_es.md))
+[![Español](https://img.shields.io/badge/Readme-Español-red.svg)](https://github.com/MrEhDev/room-card/blob/main/src/README_es.md)
 
 ## 🎨 **Description**
 
